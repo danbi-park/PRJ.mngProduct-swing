@@ -1,9 +1,11 @@
 package ui;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import dao.DaoUser;
 import vo.UserVO;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,44 +17,59 @@ public class PnlUser extends JPanel {
     private JTable table;
     private JPasswordField pfPw;
     private JPasswordField rePw;
+    private DefaultTableModel model;
+
+
     public PnlUser() {
         setLayout(null);
         DaoUser dao = new DaoUser();
+        model = new DefaultTableModel(
+                new String[]{"USER_ID","ID","이름","입사일","QUOTA",
+                "상품여부","퇴사일","관리자"},0);
 
-        JLabel lblNewLabel = new JLabel("\uC0AC\uC6A9\uC790 \uAD00\uB9AC");
-        lblNewLabel.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 30));
-        lblNewLabel.setBounds(31, 27, 185, 58);
-        add(lblNewLabel);
 
-        JLabel lblNewLabel_1 = new JLabel("\uC774\uB984");
-        lblNewLabel_1.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-        lblNewLabel_1.setBounds(41, 95, 108, 27);
-        add(lblNewLabel_1);
+        JLabel lbTitle1 = new JLabel("\uC0AC\uC6A9\uC790 \uAD00\uB9AC");
+        lbTitle1.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 30));
+        lbTitle1.setBounds(98, 60, 185, 58);
+        add(lbTitle1);
 
-        JLabel lblNewLabel_2 = new JLabel("ID");
-        lblNewLabel_2.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-        lblNewLabel_2.setBounds(47, 147, 108, 27);
-        add(lblNewLabel_2);
+        JLabel lbName = new JLabel("\uC774\uB984");
+        lbName.setFont(new Font("한컴 윤고딕 250", Font.PLAIN, 20));
+        lbName.setBounds(108, 128, 108, 27);
+        add(lbName);
 
-        JLabel lblNewLabel_3 = new JLabel("Password");
-        lblNewLabel_3.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-        lblNewLabel_3.setBounds(41, 200, 108, 27);
-        add(lblNewLabel_3);
+        JLabel lbId = new JLabel("ID");
+        lbId.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 20));
+        lbId.setBounds(108, 180, 108, 27);
+        add(lbId);
 
-        JLabel lblNewLabel_4 = new JLabel("RePass");
-        lblNewLabel_4.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-        lblNewLabel_4.setBounds(41, 250, 108, 27);
-        add(lblNewLabel_4);
+        JLabel lbPass = new JLabel("Password");
+        lbPass.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 20));
+        lbPass.setBounds(108, 233, 108, 27);
+        add(lbPass);
+
+        JLabel lbRePass = new JLabel("RePass");
+        lbRePass.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 20));
+        lbRePass.setBounds(108, 288, 108, 27);
+        add(lbRePass);
 
         tfName = new JTextField();
-        tfName.setBounds(170, 95, 141, 27);
+        tfName.setBounds(237, 128, 141, 27);
         add(tfName);
         tfName.setColumns(10);
 
         tfId = new JTextField();
         tfId.setColumns(10);
-        tfId.setBounds(170, 147, 141, 27);
+        tfId.setBounds(237, 180, 141, 27);
         add(tfId);
+
+        pfPw = new JPasswordField();
+        pfPw.setBounds(237, 233, 141, 27);
+        add(pfPw);
+
+        rePw = new JPasswordField();
+        rePw.setBounds(237, 290, 141, 27);
+        add(rePw);
 
         JButton btnRegist = new JButton("\uB4F1\uB85D");
         btnRegist.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
@@ -65,60 +82,66 @@ public class PnlUser extends JPanel {
                 String rePass = new String(rePw.getPassword());
                if (name.equals("")) {
                    JOptionPane.showMessageDialog(null,"이름을 입력해주세요");
+                   tfName.requestFocus();
                    return;
                }
                if (id.equals("")){
                    JOptionPane.showMessageDialog(null,"아이디를 입력해주세요");
+                   tfId.requestFocus();
                    return;
                }
                if (pw.equals("")) {
                    JOptionPane.showMessageDialog(null,"비밀번호를 입력해주세요");
+                   pfPw.requestFocus();
                    return;
                }
                if (rePass.equals("")) {
                    JOptionPane.showMessageDialog(null,"비밀번호 재확인을 해주세요");
+                   rePw.requestFocus();
                    return;
                }
                if(!pw.equals(rePass)) {
-                   JOptionPane.showMessageDialog(null,"아이디를 입력해주세요");
+                   JOptionPane.showMessageDialog(null,"비밀번호가 맞지 않습니다.");
                    pfPw.setText(""); rePw.setText("");
+                   pfPw.requestFocus();
                    return;
                }
-                dao.registUser(new UserVO(name, id, pw));
-
+               dao.registUser(new UserVO(name, id, pw));
             }
         });
-        btnRegist.setBounds(56, 320, 235, 35);
+        btnRegist.setBounds(123, 353, 235, 35);
         add(btnRegist);
 
-        JLabel lblNewLabel_5 = new JLabel("\uC0AC\uC6A9\uC790 \uBAA9\uB85D");
-        lblNewLabel_5.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 30));
-        lblNewLabel_5.setBounds(336, 27, 185, 58);
-        add(lblNewLabel_5);
+        JLabel lbTitle2 = new JLabel("\uC0AC\uC6A9\uC790 \uBAA9\uB85D");
+        lbTitle2.setFont(new Font("휴먼둥근헤드라인", Font.PLAIN, 30));
+        lbTitle2.setBounds(522, 57, 185, 58);
+        add(lbTitle2);
 
         tfSearch = new JTextField();
         tfSearch.setColumns(10);
-        tfSearch.setBounds(346, 95, 163, 27);
+        tfSearch.setBounds(532, 125, 163, 27);
         add(tfSearch);
 
-        JButton btnSearch = new JButton("\uC870\uD68C");
-        btnSearch.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
-        btnSearch.setBounds(517, 95, 108, 27);
-        add(btnSearch);
 
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(346, 132, 311, 226);
+        table = new JTable(new DefaultTableModel());
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(532, 162, 311, 226);
         add(scrollPane);
 
-        table = new JTable();
-        scrollPane.setColumnHeaderView(table);
+        JButton btnSearch = new JButton("\uC870\uD68C");
+        btnSearch.addActionListener(e-> {
+//            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            while(table.getRowCount()>0){
+                model.removeRow(0);
+            }
+            String srch = tfSearch.getText();
+            model = dao.getUserList(model,srch); //
+            table.setModel(model);
+            model.fireTableDataChanged();
+        });
+        btnSearch.setFont(new Font("한컴 말랑말랑 Regular", Font.PLAIN, 20));
+        btnSearch.setBounds(703, 125, 108, 27);
+        add(btnSearch);
 
-        pfPw = new JPasswordField();
-        pfPw.setBounds(170, 200, 141, 27);
-        add(pfPw);
-
-        rePw = new JPasswordField();
-        rePw.setBounds(170, 257, 141, 27);
-        add(rePw);
     }
 }

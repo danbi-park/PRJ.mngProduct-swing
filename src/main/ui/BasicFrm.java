@@ -12,6 +12,7 @@ public abstract class BasicFrm extends JFrame {
         this.width = width;
         this.height = height;
 
+
         //초기화(선생님이 임의로 만든 거임) 할 때마다 다르기 때문에 추상메서드를 써야함
         init();
         arrange();
@@ -31,5 +32,6 @@ public abstract class BasicFrm extends JFrame {
         setSize(width,height);
         setLocationRelativeTo(this); //자동적으로 가운데 띄움 위의 setSize와 함께!
         setVisible(true); //창을 보이게 함
+
     }
 }

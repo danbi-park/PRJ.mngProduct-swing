@@ -15,15 +15,19 @@ public class MainFrm extends BasicFrm {
     private ImageIcon[] icons;
     private JPanel[] pnls;
 
+
     public MainFrm() {
-        super(750, 550,"님 환영합니다.");
+        super(950, 600,"님 환영합니다.");
         String msg = MainController.getInstance().getSession()
                 .getUserName()+"님 환영합니다.";
         setTitle(msg);
+        setResizable(false);
+
     }
 
     @Override
     public void init() {
+
         menus = new String[]{"sale","report","product","customer","user"};
 //        Color[] colors = {Color.red,Color.orange,Color.yellow,Color.green,Color.blue};
         lbArr = new JLabel[5];

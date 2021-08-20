@@ -14,6 +14,7 @@ public class LoginFrm extends BasicFrm implements ActionListener{
 
     public LoginFrm() {
         super(300,150,"Login");
+
     }
 
 
