@@ -22,7 +22,7 @@ public class LoginFrm extends BasicFrm implements ActionListener{
 
     private JTextField tfId;
     private JPasswordField pfpw;
-    private JButton btnLogin, btnCancel, btnSignIn;
+    private JButton btnLogin, btnCancel;
 
 
     @Override
@@ -32,11 +32,9 @@ public class LoginFrm extends BasicFrm implements ActionListener{
         pnlCenter = new JPanel();
         pnlSouth = new JPanel();
         btnLogin = new JButton("로그인");
-        btnSignIn = new JButton("회원가입");
         btnCancel = new JButton("취소");
         btnLogin.addActionListener(this);
         btnCancel.addActionListener(this);
-        btnSignIn.addActionListener(this);
 
         id = new JLabel("ID      ");
         id.setFont(new Font("consolas",Font.BOLD,20));
@@ -57,7 +55,6 @@ public class LoginFrm extends BasicFrm implements ActionListener{
         pnlCenter.add(pfpw);
         pnlSouth.add(btnLogin);
         pnlSouth.add(btnCancel);
-        pnlSouth.add(btnSignIn);
 
         add(pnlNorth, BorderLayout.NORTH);
         add(pnlCenter, BorderLayout.CENTER);
@@ -88,11 +85,10 @@ public class LoginFrm extends BasicFrm implements ActionListener{
                 tfId.requestFocus();
                 return;
             }
-                dispose(); //자신은 창을 닫음
+            dispose(); //자신은 창을 닫음
             MainController.forwardControl("Main");
 
         } else if (e.getSource() == btnCancel) {
-        } else if (e.getSource() == btnSignIn) {
         }
 
     }

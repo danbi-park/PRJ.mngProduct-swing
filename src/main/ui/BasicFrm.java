@@ -27,9 +27,9 @@ public abstract class BasicFrm extends JFrame {
     public abstract  void arrange();
 
     public void inflate(){
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //x를 누르면 실행도 멈춤
-    setSize(width,height);
-    setLocationRelativeTo(this); //자동적으로 가운데 띄움 위의 setSize와 함께!
-    setVisible(true); //창을 보이게 함
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //x를 누르면 실행도 멈춤
+        setSize(width,height);
+        setLocationRelativeTo(this); //자동적으로 가운데 띄움 위의 setSize와 함께!
+        setVisible(true); //창을 보이게 함
     }
 }
