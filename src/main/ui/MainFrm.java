@@ -38,7 +38,7 @@ public class MainFrm extends BasicFrm {
         cardLayout = new CardLayout(10,10);
         pnlCenter = new JPanel(cardLayout);
         pnlNorth.setBackground(Color.white);
-        pnlCenter.setBackground(Color.pink);
+        pnlCenter.setBackground(Color.lightGray);
         pnlNorth.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         for (int i = 0; i < lbArr.length; i++) {
@@ -61,9 +61,6 @@ public class MainFrm extends BasicFrm {
                 }
             });
         }
-
-
-
     }
 
     @Override

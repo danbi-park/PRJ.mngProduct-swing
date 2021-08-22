@@ -38,4 +38,24 @@ public class DaoProduct extends DaoSet {
     }
 
 
+
+    public Object[] getID() {
+        Object[] result = null;
+        String sql = "select max(product_id)+1 from demo_product_info ";
+        ArrayList list = new ArrayList();
+        try {
+            conn = connDB();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                list.add(rs.getInt(1));
+            }
+            result = list.toArray();
+        } catch (SQLException throwables) { }
+
+        return result;
+    }
+
+
+
 }

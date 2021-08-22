@@ -22,7 +22,7 @@ public class LoginFrm extends BasicFrm implements ActionListener{
     private JLabel id, pw;
 
     private JTextField tfId;
-    private JPasswordField pfpw;
+    private JPasswordField pfPw;
     private JButton btnLogin, btnCancel;
 
 
@@ -40,9 +40,9 @@ public class LoginFrm extends BasicFrm implements ActionListener{
         id = new JLabel("ID      ");
         id.setFont(new Font("consolas",Font.BOLD,20));
         tfId = new JTextField(10);
-        pfpw = new JPasswordField(10);
+        pfPw = new JPasswordField(10);
         tfId.setText("ADMIN");
-        pfpw.setText("1");
+        pfPw.setText("1");
         pw = new JLabel("password");
         pw.setFont(new Font("consolas",Font.BOLD,20));
 
@@ -53,7 +53,7 @@ public class LoginFrm extends BasicFrm implements ActionListener{
         pnlNorth.add(id);
         pnlNorth.add(tfId);
         pnlCenter.add(pw);
-        pnlCenter.add(pfpw);
+        pnlCenter.add(pfPw);
         pnlSouth.add(btnLogin);
         pnlSouth.add(btnCancel);
 
@@ -66,7 +66,7 @@ public class LoginFrm extends BasicFrm implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String id = tfId.getText();
-        String pw = new String(pfpw.getPassword()); //암호화되있기 때문에 이렇게 가져와야함
+        String pw = new String(pfPw.getPassword()); //암호화되있기 때문에 이렇게 가져와야함
         if (e.getSource() == btnLogin) {
             if (id == null || id.equals("")) {
                 JOptionPane.showMessageDialog(null, "id를 입력해주세요");
@@ -75,14 +75,14 @@ public class LoginFrm extends BasicFrm implements ActionListener{
             }
             if (pw == null || pw.equals("")) {
                 JOptionPane.showMessageDialog(null, "패스워드를 입력해주세요");
-                pfpw.requestFocus();
+                pfPw.requestFocus();
                 return;
             }
             UserVO userVO = new DaoUser().checkLogin(id,pw); //UserVO가 넘어옴 !! Daouser의 리턴타입이 UserVO라서
             //id와 pw가 있으면 id,pw 없으면 null!
             if (userVO == null) {
                 JOptionPane.showMessageDialog(null,"존재하지 않는 ID입니다.");
-                tfId.setText(""); pfpw.setText("");
+                tfId.setText(""); pfPw.setText("");
                 tfId.requestFocus();
                 return;
             }
