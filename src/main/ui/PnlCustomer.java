@@ -26,8 +26,8 @@ public class PnlCustomer extends JPanel {
     public PnlCustomer() {
         setLayout(null);
 
-        /* ------------- 사용자 등록 ------------- */
-        JLabel lbRegistTitle = new JLabel("\uC0AC\uC6A9\uC790 \uB4F1\uB85D");
+        /* ------------- 고객 등록 ------------- */
+        JLabel lbRegistTitle = new JLabel("고객 등록");
         lbRegistTitle.setFont(new Font("맑은 고딕", Font.BOLD, 20));
         lbRegistTitle.setBounds(12, 10, 124, 27);
         add(lbRegistTitle);
@@ -172,8 +172,8 @@ public class PnlCustomer extends JPanel {
         separator.setBounds(455, 10, 2, 452);
         add(separator);
 
-        /* ------------- 사용자 검색  ------------- */
-        JLabel lbSearchTitle = new JLabel("\uC0AC\uC6A9\uC790 \uAC80\uC0C9");
+        /* ------------- 고객 검색  ------------- */
+        JLabel lbSearchTitle = new JLabel("고객 검색");
         lbSearchTitle.setFont(new Font("맑은 고딕", Font.BOLD, 20));
         lbSearchTitle.setBounds(480, 10, 124, 27);
         add(lbSearchTitle);

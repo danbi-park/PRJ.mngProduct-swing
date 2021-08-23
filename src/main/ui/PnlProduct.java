@@ -1,21 +1,13 @@
 package ui;
 
 import java.awt.Font;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JSeparator;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import javafx.scene.control.IndexRange;
 import org.jdatepicker.JDatePicker;
-import javax.swing.JButton;
+
 import java.awt.Color;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+
 import dao.DaoProduct;
 
 public class PnlProduct extends JPanel {
@@ -42,17 +34,16 @@ public class PnlProduct extends JPanel {
         lbId.setBounds(80, 48, 62, 27);
         add(lbId);
 
-        JComboBox cmbId = new JComboBox(daoProduct.getID());
-        cmbId.setBounds(177, 51, 74, 27);
-        cmbId.setEditable(false);
-        cmbId.setEnabled(false);
-        add(cmbId);
+//        JComboBox cmbId = new JComboBox(daoProduct.getID());
+//        cmbId.setBounds(177, 51, 74, 27);
+//        cmbId.setEnabled(false);
+//        add(cmbId);
 
-//        tfId = new JTextField(daoProduct.getID());
-//        tfId.setEditable(false);
-//        tfId.setBounds(177, 51, 74, 27);
-//        add(tfId);
-//        tfId.setColumns(10);
+
+        tfId = new JTextField();
+        tfId.setBounds(177, 51, 74, 27);
+        add(tfId);
+        tfId.setColumns(10);
 
         JLabel lblName = new JLabel("Name");
         lblName.setFont(new Font("맑은 고딕", Font.BOLD, 17));

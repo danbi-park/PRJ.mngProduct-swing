@@ -12,11 +12,13 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class PnlSale extends JPanel {
+public class PnlSaleTest extends JPanel {
     private JComboBox cbCustomer;
     private JComboBox cbCate;
     private JComboBox cbProd;
@@ -24,21 +26,24 @@ public class PnlSale extends JPanel {
     private JTextField tfPrice, tfTotal, tfAmount;
     private JTable table;
     private JLabel lbProdImg, lbProdImgBack;
+    private DaoCustomer daoCustomer = new DaoCustomer();
+    private DaoProduct daoProduct = new DaoProduct();
 
-    public PnlSale() {
+
+    public PnlSaleTest() {
         setLayout(null);
-        DaoCustomer daoCustomer = new DaoCustomer();
-        DaoProduct daoProduct = new DaoProduct();
-
         setBorder(new TitledBorder(new LineBorder(Color.GRAY, 1),"매 출 처 리"));
         dPic = new JDatePicker();
         dPic.setTextEditable(true);
-
 
         dPic.getFormattedTextField().setLocation(-55, 0);
         dPic.setBounds(90,43,250,24);
         add(dPic);
 
+        String pId = (cbProd.getSelectedItem().toString()).split("/")[0];
+        tfPrice = new JTextField(daoProduct.getProdPrice(pId));
+        ImageIcon img = daoProduct.getProdImg(pId);
+        lbProdImg.setIcon(resizeImg(img));
 
         cbCustomer = new JComboBox(daoCustomer.getCustAll());
         cbCustomer.setBounds(395, 43, 243, 23);
@@ -48,11 +53,13 @@ public class PnlSale extends JPanel {
         cbCate.setBounds(22, 88, 131, 24);
         add(cbCate);
 
+        cbProd = new JComboBox(daoProduct.getProdList(cbCate.getSelectedItem().toString()));
+        cbProd.setBounds(157, 89, 232, 24);
+        add(cbProd);
 
-        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+        SimpleDateFormat mSimpleDateFromat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
         Date currentTime= new Date();
-        String mTime = mSimpleDateFormat.format(currentTime);
-
+        String mTime = mSimpleDateFromat.format(currentTime);
 
         JLabel lbCustomerName = new JLabel("\uACE0\uAC1D\uBA85");
         lbCustomerName.setFont(new Font("맑은 고딕", Font.BOLD, 12));
@@ -65,15 +72,10 @@ public class PnlSale extends JPanel {
         add(lbReportinDate);
 
 
-        tfPrice = new JTextField();
-
         tfPrice.setBounds(413, 88, 69, 24);
         tfPrice.setEditable(false);
         add(tfPrice);
         tfPrice.setColumns(10);
-
-
-
 
 
         tfAmount = new JTextField();
@@ -86,15 +88,14 @@ public class PnlSale extends JPanel {
         tfTotal.setBounds(563, 88, 75, 24);
         add(tfTotal);
 
-
         JLabel lbImage = new JLabel("제품 이미지");
         lbImage.setFont(new Font("맑은 고딕", Font.BOLD, 12));
         lbImage.setBounds(733, 89, 75, 19);
         add(lbImage);
 
-
         lbProdImg= new JLabel();
         lbProdImg.setBounds(660, 122, 243, 288);
+
 
 
         lbProdImgBack = new JLabel();
@@ -107,47 +108,6 @@ public class PnlSale extends JPanel {
         lbProdImgBack.setBounds(650, 122, 243, 288);
         add(lbProdImg);
         add(lbProdImgBack);
-
-
-        cbCate.addActionListener(e -> {
-            String cateW = cbCate.getSelectedItem().toString();
-            Object[] oArr = null;
-            cbProd.removeAllItems();
-            try {
-                oArr = daoProduct.getProdList(cateW);
-            } catch (Exception e1) {
-            }
-            if (oArr.length > 0) {
-                for (int i = 0; i < oArr.length; i++) {
-                    cbProd.addItem(oArr[i]);
-                }
-            }
-            String pId1 = cbProd.getSelectedItem().toString().split("/")[0];
-            tfPrice.setText(daoProduct.getProdPrice(pId1));
-            ImageIcon img = daoProduct.getProdImg(pId1);
-            lbProdImg.setIcon(resizeImg(img));
-        });
-
-        cbProd = new JComboBox(daoProduct.getProdList(cbCate.getSelectedItem().toString()));
-        cbProd.setBounds(157, 89, 232, 24);
-        add(cbProd);
-
-        cbProd.addActionListener(e -> {
-            if (cbProd.getSelectedItem() != null) {
-                String pId2 = cbProd.getSelectedItem().toString().split("/")[0];
-                tfPrice.setText(daoProduct.getProdPrice(pId2));
-                ImageIcon img = daoProduct.getProdImg(pId2);
-                lbProdImg.setIcon(resizeImg(img));
-
-            }
-        });
-
-        String pId = cbProd.getSelectedItem().toString().split("/")[0];
-        tfPrice = new JTextField(daoProduct.getProdPrice(pId));
-
-        ImageIcon img = daoProduct.getProdImg(pId);
-        lbProdImg.setIcon(resizeImg(img));
-
 
         JSeparator separator = new JSeparator();
         separator.setForeground(Color.DARK_GRAY);
@@ -184,8 +144,38 @@ public class PnlSale extends JPanel {
         btnPay.setBounds(541, 420, 97, 23);
         add(btnPay);
 
-    }
 
+
+        cbCate.addActionListener(e -> {
+            String cateW = cbCate.getSelectedItem().toString();
+            Object[] oArr = null;
+            cbProd.removeAllItems();
+            try {
+                oArr = daoProduct.getProdList(cateW);
+            } catch (Exception e1) {
+            }
+            if (oArr.length > 0) {
+                for (int i = 0; i < oArr.length; i++) {
+                    cbProd.addItem(oArr[i]);
+                }
+            }
+            String pId1 = cbProd.getSelectedItem().toString().split("/")[0];
+            tfPrice.setText(daoProduct.getProdPrice(pId1));
+            ImageIcon img1 = daoProduct.getProdImg(pId1);
+            lbProdImg.setIcon(resizeImg(img1));
+        });
+
+        cbProd.addActionListener(e -> {
+            if (cbProd.getSelectedItem() != null) {
+                String pId2 = cbProd.getSelectedItem().toString().split("/")[0];
+                tfPrice.setText(daoProduct.getProdPrice(pId2));
+                ImageIcon img2 = daoProduct.getProdImg(pId2);
+                lbProdImg.setIcon(resizeImg(img2));
+
+            }
+        });
+
+    }
     private ImageIcon resizeImg(ImageIcon img){
         int imgW = img.getIconWidth();
         int imgH = img.getIconHeight();
