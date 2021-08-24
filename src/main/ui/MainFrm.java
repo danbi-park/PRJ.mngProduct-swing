@@ -32,7 +32,7 @@ public class MainFrm extends BasicFrm {
 //        Color[] colors = {Color.red,Color.orange,Color.yellow,Color.green,Color.blue};
         lbArr = new JLabel[5];
         icons = new ImageIcon[5];
-        pnls = new JPanel[]{new PnlSaleTest(),new PnlReport(), new PnlProduct(),
+        pnls = new JPanel[]{new PnlSale(),new PnlReport(), new PnlProduct(),
                 new PnlCustomer(), new PnlUser()};
         pnlNorth = new JPanel();
         cardLayout = new CardLayout(10,10);

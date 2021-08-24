@@ -14,7 +14,8 @@ public class UserVO {
     private String id;
 
     //모든 정보를 불러올때 사용
-    public UserVO(int userId, String userName, String password, Date createOn, int quota, String products, Date expiresOn, String adminUser, String id) {
+    public UserVO(int userId, String userName, String password, Date createOn, int quota,
+                  String products, Date expiresOn, String adminUser, String id) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;

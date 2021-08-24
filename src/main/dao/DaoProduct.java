@@ -57,6 +57,22 @@ public class DaoProduct extends DaoSet {
         return result;
     }
 
+    public String getLatestId(){
+        String result = "";
+        String sql = "select max(product_id)+1 from demo_product_info";
+        try {
+            conn =  connDB();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                result = rs.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public ImageIcon getProdImg(String pId){
         ImageIcon result = null;
         String sql = "select product_image from demo_product_info " +
@@ -73,25 +89,5 @@ public class DaoProduct extends DaoSet {
         }
         return result;
     }
-
-
-
-//    /*id 메서드*/
-//    public String getID(String prodId) {
-//        String result = "";
-//        String sql = "select max(product_id)+1 from demo_product_info ";
-//        try {
-//            conn = connDB();
-//            pstmt = conn.prepareStatement(sql);
-//            pstmt.setInt(1,Integer.parseInt(prodId)); //
-//            rs = pstmt.executeQuery();
-//            if (rs.next()) {
-//                result = rs.getString(1);
-//            }
-//        } catch (SQLException e) { }
-//        return result;
-//    }
-
-
 
 }

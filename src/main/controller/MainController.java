@@ -2,6 +2,7 @@ package controller;
 
 import ui.LoginFrm;
 import ui.MainFrm;
+import vo.ProductVO;
 import vo.UserVO;
 
 //프로그램의 흐름을 좌지우지하는 controller
@@ -22,6 +23,8 @@ public class MainController {
     //계정이 하나인 것 처럼 session도 하나이다.
     public UserVO getSession() { return session;} //데이터 가져오는 것
     public void setSession(UserVO session) {this.session = session;} //데이터 저장하는 것
+
+
 
     public static void forwardControl(String cmd){
         if (cmd.equals("Login")) {

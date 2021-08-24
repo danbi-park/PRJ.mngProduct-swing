@@ -34,13 +34,7 @@ public class PnlProduct extends JPanel {
         lbId.setBounds(80, 48, 62, 27);
         add(lbId);
 
-//        JComboBox cmbId = new JComboBox(daoProduct.getID());
-//        cmbId.setBounds(177, 51, 74, 27);
-//        cmbId.setEnabled(false);
-//        add(cmbId);
-
-
-        tfId = new JTextField();
+        JTextField tfId = new JTextField(daoProduct.getLatestId());
         tfId.setBounds(177, 51, 74, 27);
         add(tfId);
         tfId.setColumns(10);
@@ -54,7 +48,6 @@ public class PnlProduct extends JPanel {
         tfName.setColumns(10);
         tfName.setBounds(177, 127, 133, 27);
         add(tfName);
-
 
         JLabel lbCategory = new JLabel("Category");
         lbCategory.setFont(new Font("맑은 고딕", Font.BOLD, 17));

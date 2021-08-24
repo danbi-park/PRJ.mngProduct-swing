@@ -1,45 +1,46 @@
 package dao;
 
 import controller.MainController;
+import vo.ProductVO;
 import vo.UserVO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 
-public class DaoUser extends DaoSet { //상속받았기 때문에 connection도 얻을 수 있음
+public class DaoProductTest extends DaoSet{
 
-    public UserVO checkLogin(String id, String pw){ //참조형 변수를 리턴타입으로 해줄 수 있음
-        UserVO user = null;
+    public ProductVO checkLogin(int prodId, String prodName){ //참조형 변수를 리턴타입으로 해줄 수 있음
+        ProductVO product = null;
         try {
-            conn = connDB(); //connection 연결 (exception발생)
+            conn = connDB();
+            String query = "select * from demo_product_info where product_id=? and product_name=? ";
 
-            String query = "select * from demo_users where id=? and password=?";
-
-            pstmt = conn.prepareStatement(query); //connection이되고 날려야 할 쿼리를 pstmt가 쿼리가 데이터베이스에게 이해할 수 있도록한다.
-            pstmt.setString(1,id); //위에 홑따옴표 안넣고 물음표로 넣을라고
-            pstmt.setString(2,pw);
-            rs = pstmt.executeQuery(); //result set에 들어갔는지 비교
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1,prodId);
+            pstmt.setString(2,prodName);
+            rs = pstmt.executeQuery();
             if (rs.next()) {
-                //UserVO 에서 들고와서 객체 인스턴스를 만드는 것임 (활용목적)
-                user = new UserVO(   //column 인데스 넘버임! (1부터)
-                        rs.getInt(1),        //userId
-                        rs.getString(2),     //userName
-                        rs.getString(3),     //password
-                        rs.getDate(4),       //createOn
-                        rs.getInt(5),        //quota
-                        rs.getString(6),     //products
-                        rs.getDate(7),       //expiresOn
-                        rs.getString(8),     //adminUser
-                        rs.getString(9)      //id
+                product = new ProductVO( //생성자 있는데 왜 안되는지
+                        rs.getInt(1),        //prodId
+                        rs.getString(2),     //prodName
+                        rs.getString(3),     //Description
+                        rs.getString(4),     //category
+                        rs.getString(5),     //prodAvail
+                        rs.getInt(6),        //price
+                        rs.getString(7),     //prodImg
+                        rs.getString(8),     //mimeType
+                        rs.getString(9),     //fileName
+                        rs.getDate(10)     //imgLstDate
                 );
-                MainController.getInstance().setSession(user);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return user;
+        return product;
     }
+
+
     public void registUser(UserVO vo){
         try {
             conn = connDB();
